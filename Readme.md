@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Степан Васильев](https://up.htmlacademy.ru/javascript-individual/2/user/166397).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Хапов](https://htmlacademy.ru/profile/id118459).
 
 ---
 
