@@ -1,11 +1,6 @@
 const PHOTOS_COUNT = 25;
 const MAX_COMMENT_MESSAGES_COUNT = 2;
 
-const PhotoIdRange = {
-  MIN: 1,
-  MAX: 25
-};
-
 const UrlIdRange = {
   MIN: 1,
   MAX: 25
@@ -44,7 +39,7 @@ const DESCRIPTIONS = [
   'Отличный был концерт!',
   'Это я на море! Пью джус!',
   'Кот опять учудил',
-  'За окном прекрасная погода',
+  'О, на улице погооодааа... ужаснаааяяя',
   'Я уже устал придумывать описания',
   'Россия для грустных'
 ];
@@ -115,7 +110,6 @@ const createRandomIdGenetrator = (a, b) => {
   };
 };
 
-const getPhotoId = createRandomIdGenetrator(PhotoIdRange.MIN, PhotoIdRange.MAX);
 const getUrl = createRandomIdGenetrator(UrlIdRange.MIN, UrlIdRange.MAX);
 const getCommentId = createRandomIdGenetrator(CommentsIdRange.MIN, CommentsIdRange.MAX);
 
@@ -126,14 +120,14 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
-const createPhoto = () => ({
-  id: getPhotoId(),
+const createPhoto = (currentId) => ({
+  id: currentId,
   url: `photos/${getUrl()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LikesCountRange.MIN, LikesCountRange.MAX),
   comments: Array.from({length: getRandomInteger(CommentsCountRange.MIN, CommentsCountRange.MAX)}, createComment)
 });
 
-const photos = Array.from({length: PHOTOS_COUNT}, createPhoto);
+const photos = Array.from({length: PHOTOS_COUNT}, (_, index) => createPhoto(index));
 
 window.console.log(photos);
