@@ -1,11 +1,6 @@
 const PHOTOS_COUNT = 25;
 const MAX_COMMENT_MESSAGES_COUNT = 2;
 
-const UrlIdRange = {
-  MIN: 1,
-  MAX: 25
-};
-
 const CommentsIdRange = {
   MIN: 1,
   MAX: 1000
@@ -65,15 +60,13 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 const getRandomArrayElements = (elements, maxItems) => {
   const usedElements = [];
 
-  let result = '';
   const iterations = getRandomInteger(1, maxItems);
 
+  if (usedElements.length >= iterations) {
+    return;
+  }
+
   for (let i = 1; i <= iterations; i++) {
-
-    if (usedElements.length >= iterations) {
-      break;
-    }
-
     let currentElement = getRandomArrayElement(elements);
 
     while (usedElements.includes(currentElement)) {
@@ -81,15 +74,9 @@ const getRandomArrayElements = (elements, maxItems) => {
     }
 
     usedElements.push(currentElement);
-
-    if (i === 1) {
-      result += `${currentElement}`;
-    } else {
-      result += ` ${currentElement}`;
-    }
   }
 
-  return result;
+  return usedElements.join(' ');
 };
 
 const createRandomIdGenetrator = (a, b) => {
@@ -106,11 +93,12 @@ const createRandomIdGenetrator = (a, b) => {
       currentValue = getRandomInteger(a, b);
     }
     values.push(currentValue);
+
     return currentValue;
   };
 };
 
-const getUrl = createRandomIdGenetrator(UrlIdRange.MIN, UrlIdRange.MAX);
+let urlId = 0;
 const getCommentId = createRandomIdGenetrator(CommentsIdRange.MIN, CommentsIdRange.MAX);
 
 const createComment = () => ({
@@ -121,8 +109,8 @@ const createComment = () => ({
 });
 
 const createPhoto = (currentId) => ({
-  id: currentId,
-  url: `photos/${getUrl()}.jpg`,
+  id: ++currentId,
+  url: `photos/${++urlId}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LikesCountRange.MIN, LikesCountRange.MAX),
   comments: Array.from({length: getRandomInteger(CommentsCountRange.MIN, CommentsCountRange.MAX)}, createComment)
