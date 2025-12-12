@@ -1,5 +1,5 @@
 // isStringLengthValid
-const isStringLengthValid = (string, length) => string.length <= length;
+// const isStringLengthValid = (string, length) => string.length <= length;
 
 // window.console.log('\n Проверка isStringLengthValid: \n ');
 // // Строка короче 20 символов
@@ -19,17 +19,17 @@ const isStringLengthValid = (string, length) => string.length <= length;
 // };
 
 // второй вариант
-const isStringPalindrome = (string) => {
-  const convertedString = string.replaceAll(' ', '').toLowerCase();
+// const isStringPalindrome = (string) => {
+//   const convertedString = string.replaceAll(' ', '').toLowerCase();
 
-  for (let i = 0; i < convertedString.length / 2; i++) {
-    if (convertedString[i] !== convertedString[convertedString.length - 1 - i]) {
-      return false;
-    }
-  }
+//   for (let i = 0; i < convertedString.length / 2; i++) {
+//     if (convertedString[i] !== convertedString[convertedString.length - 1 - i]) {
+//       return false;
+//     }
+//   }
 
-  return true;
-};
+//   return true;
+// };
 
 // window.console.log('\n Проверка isStringPalindrome: \n ');
 // // Строка является палиндромом
