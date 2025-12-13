@@ -1,4 +1,4 @@
-import { createPhotos } from './data';
+import { createPhotos } from './create-photos';
 import './modal';
 import './photo-modal';
 import './render-photos';
