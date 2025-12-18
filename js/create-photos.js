@@ -1,5 +1,5 @@
-import { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator } from './utils';
-import { createPhotosData } from './data';
+import { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator } from './utils.js';
+import { createPhotosData } from './data.js';
 
 const PHOTOS_COUNT = 25;
 const MAX_COMMENT_MESSAGES_COUNT = 2;
