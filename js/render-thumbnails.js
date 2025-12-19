@@ -20,6 +20,10 @@ const createThumbnail = ({ id, url, description, likes, comments }) => {
 };
 
 const renderThumbnails = (photos) => {
+  if (!thumbnailsContainerElement) {
+    return;
+  }
+
   const thumbnailsListFragment = document.createDocumentFragment();
 
   photos.forEach((photo) => {
