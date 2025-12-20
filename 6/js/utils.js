@@ -48,4 +48,18 @@ const createRandomIdGenetrator = (a, b) => {
   };
 };
 
-export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator };
+const findTemplateById = (id) => {
+  const template = document.querySelector(`#${id}`);
+
+  if (!template) {
+    throw new Error('Element not found');
+  }
+
+  if (!(template instanceof HTMLTemplateElement)) {
+    throw new Error('Element in not a template');
+  }
+
+  return template.content.firstElementChild;
+};
+
+export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator, findTemplateById };
