@@ -1,4 +1,4 @@
-import { findTemplateById, findPhotoById } from './utils';
+import { findTemplateById, findPhotoById } from './utils.js';
 
 const modalElement = document.querySelector('.big-picture');
 const modalImageElement = modalElement.querySelector('.big-picture__img img');

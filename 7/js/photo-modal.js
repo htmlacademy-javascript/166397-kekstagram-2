@@ -1,5 +1,5 @@
-import { isEscKey } from './utils';
-import { renderBigPhoto } from './render-photo';
+import { isEscKey } from './utils.js';
+import { renderBigPhoto } from './render-photo.js';
 
 const bodyElement = document.querySelector('body');
 const modalElement = bodyElement.querySelector('.big-picture');
