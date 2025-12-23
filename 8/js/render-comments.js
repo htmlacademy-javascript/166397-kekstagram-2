@@ -26,18 +26,15 @@ const renderComments = (comments, container) => {
   container.append(commentsListFragment);
 };
 
-const createRenderNextComments = (startIndex, commentsChunkSize, comments, container) => {
-  let endIndex = commentsChunkSize;
+const createRenderNextComments = (startIndex, commentsChunkSize, comments, container) => () => {
+  const endIndex = startIndex + commentsChunkSize;
 
-  return () => {
-    const safeEndIndex = Math.min(endIndex, comments.length);
+  const safeEndIndex = Math.min(endIndex, comments.length);
 
-    const sliceComments = comments.slice(startIndex, safeEndIndex);
-    renderComments(sliceComments, container);
+  const sliceComments = comments.slice(startIndex, safeEndIndex);
+  renderComments(sliceComments, container);
 
-    startIndex += commentsChunkSize;
-    endIndex += commentsChunkSize;
-  };
+  startIndex += commentsChunkSize;
 };
 
 export { createRenderNextComments };
