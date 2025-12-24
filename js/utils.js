@@ -64,6 +64,6 @@ const findTemplateById = (id) => {
 
 const isEscKey = (evt) => evt.key === 'Escape';
 
-const findPhotoById = (id, photos) => photos.find((photo) => photo.id === id);
+const findElementById = (id, array) => array.find((element) => element.id === id);
 
-export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator, findTemplateById, isEscKey, findPhotoById };
+export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator, findTemplateById, isEscKey, findElementById };
