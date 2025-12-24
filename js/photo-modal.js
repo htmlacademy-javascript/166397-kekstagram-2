@@ -9,7 +9,7 @@ const bodyElement = document.querySelector('body');
 const modalElement = bodyElement.querySelector('.big-picture');
 const modalImageElement = modalElement.querySelector('.big-picture__img img');
 const modalLikesElement = modalElement.querySelector('.likes-count');
-const closeModalElement = modalElement.querySelector('.big-picture__cancel');
+const modalCloseElement = modalElement.querySelector('.big-picture__cancel');
 const modalCommentsCountElement = modalElement.querySelector('.social__comment-count');
 const modalShownCommentsCountElement = modalCommentsCountElement.querySelector('.social__comment-shown-count');
 const modalTotalCommentsCountElement = modalCommentsCountElement.querySelector('.social__comment-total-count');
@@ -19,10 +19,9 @@ const modalCommentsLoaderElement = modalElement.querySelector('.comments-loader'
 
 const renderNextComments = () => {
   const endIndex = startIndex + COMMENTS_CHUNK_SIZE;
-
   const safeEndIndex = Math.min(endIndex, comments.length);
-
   const sliceComments = comments.slice(startIndex, safeEndIndex);
+
   renderComments(sliceComments, modalCommentsListElement);
 
   modalShownCommentsCountElement.textContent = safeEndIndex;
@@ -42,11 +41,8 @@ const onDocumentKeydown = (evt) => {
 const renderBigPhoto = ({url, likes, description}) => {
   modalImageElement.src = url;
   modalLikesElement.textContent = likes;
-  modalShownCommentsCountElement.textContent = comments.length < COMMENTS_CHUNK_SIZE ? comments.length : COMMENTS_CHUNK_SIZE;
   modalTotalCommentsCountElement.textContent = comments.length;
   modalDescriptionElement.textContent = description;
-
-  modalCommentsLoaderElement.classList.toggle('hidden', COMMENTS_CHUNK_SIZE >= comments.length);
 };
 
 function openPhotoModal(photo) {
@@ -91,7 +87,7 @@ const initPhotoModal = (photos, container) => {
     renderNextComments();
   });
 
-  closeModalElement.addEventListener('click', () => {
+  modalCloseElement.addEventListener('click', () => {
     closePhotoModal();
   });
 };
