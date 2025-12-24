@@ -32,10 +32,6 @@ const renderNextComments = () => {
   startIndex += COMMENTS_CHUNK_SIZE;
 };
 
-const onLoaderClick = () => {
-  renderNextComments();
-};
-
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
     evt.preventDefault();
@@ -91,7 +87,9 @@ const initPhotoModal = (photos, container) => {
     }
   });
 
-  modalCommentsLoaderElement.addEventListener('click', onLoaderClick);
+  modalCommentsLoaderElement.addEventListener('click', () => {
+    renderNextComments();
+  });
 
   closeModalElement.addEventListener('click', () => {
     closePhotoModal();
