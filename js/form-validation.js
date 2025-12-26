@@ -1,4 +1,5 @@
 const MAX_HASHTAGS_COUNT = 5;
+const MAX_DESCRIPTION_LENGTH = 140;
 
 const formElemet = document.querySelector('.img-upload__form');
 const hashtagsFieldElement = formElemet.querySelector('.text__hashtags');
@@ -25,7 +26,7 @@ const validateHashtagsField = (value) => {
   return hashtags.every((item) => validateHashtag(item)) && hashtags.length <= MAX_HASHTAGS_COUNT && new Set(hashtags).size === hashtags.length;
 };
 
-const validateDescriptionField = (value) => value.length <= 140;
+const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
 const getHashtagsErrorMessage = (value) => {
   const hashtags = value.trim().split(/\s+/);
@@ -38,7 +39,7 @@ const getHashtagsErrorMessage = (value) => {
     return 'Хэштеги повторяются';
   }
 
-  if (hashtags.length > 5) {
+  if (hashtags.length > MAX_HASHTAGS_COUNT) {
     return 'Не более 5 хэштегов';
   }
 };
@@ -53,6 +54,7 @@ const initFormValidation = () => {
 
   formElemet.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
     if (pristine.validate()) {
       formElemet.submit();
     }
