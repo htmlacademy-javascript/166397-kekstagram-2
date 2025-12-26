@@ -2,9 +2,9 @@ import { isEscKey } from './utils.js';
 import { initFormValidation } from './form-validation.js';
 
 const bodyElement = document.querySelector('body');
-const formElemet = bodyElement.querySelector('.img-upload__form');
-const modalFormElement = formElemet.querySelector('.img-upload__overlay');
-const uploadControlElement = formElemet.querySelector('.img-upload__input');
+const formElement = bodyElement.querySelector('.img-upload__form');
+const modalFormElement = formElement.querySelector('.img-upload__overlay');
+const uploadControlElement = formElement.querySelector('.img-upload__input');
 const modalFormCloseElement = modalFormElement.querySelector('.img-upload__cancel');
 
 const onDocumentKeydown = (evt) => {
@@ -28,7 +28,7 @@ function closeModalForm() {
   modalFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  formElemet.reset();
+  formElement.reset();
 }
 
 const initModalForm = () => {

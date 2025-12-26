@@ -1,11 +1,11 @@
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
 
-const formElemet = document.querySelector('.img-upload__form');
-const hashtagsFieldElement = formElemet.querySelector('.text__hashtags');
-const descriptionFieldElement = formElemet.querySelector('.text__description');
+const formElement = document.querySelector('.img-upload__form');
+const hashtagsFieldElement = formElement.querySelector('.text__hashtags');
+const descriptionFieldElement = formElement.querySelector('.text__description');
 
-const pristine = new Pristine(formElemet, {
+const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper', // Элемент, на который будут добавляться классы
   errorTextParent: 'img-upload__field-wrapper', // Элемент, куда будет выводиться текст с ошибкой
   errorTextTag: 'div', // Тег, который будет обрамлять текст ошибки
@@ -48,15 +48,15 @@ pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsEr
 pristine.addValidator(descriptionFieldElement, validateDescriptionField, 'Не больше 140 символов');
 
 const initFormValidation = () => {
-  if (!formElemet) {
+  if (!formElement) {
     return;
   }
 
-  formElemet.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     if (pristine.validate()) {
-      formElemet.submit();
+      formElement.submit();
     }
   });
 };
