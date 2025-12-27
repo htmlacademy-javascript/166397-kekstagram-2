@@ -14,6 +14,8 @@ const pristine = new Pristine(formElement, {
 
 const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
 
+const convertHashtags = (value) => value.trim().toLowerCase().split(/\s+/);
+
 const isHashtagValid = (value) => hashtag.test(value);
 
 const isEveryHashtagValid = (hashtags) => hashtags.every((item) => isHashtagValid(item));
@@ -23,11 +25,11 @@ const isHashtagsCountValid = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT
 const isHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
 
 const validateHashtagsField = (value) => {
-  if (!value) {
+  if (!value.trim()) {
     return true;
   }
 
-  const hashtags = value.trim().split(/\s+/);
+  const hashtags = convertHashtags(value);
 
   return isEveryHashtagValid(hashtags) && isHashtagsCountValid(hashtags) && isHashtagsUnique(hashtags);
 };
@@ -35,7 +37,7 @@ const validateHashtagsField = (value) => {
 const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
 const getHashtagsErrorMessage = (value) => {
-  const hashtags = value.trim().split(/\s+/);
+  const hashtags = convertHashtags(value);
 
   if (!isEveryHashtagValid(hashtags)) {
     return 'Невалидный хэштег';
