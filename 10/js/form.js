@@ -13,7 +13,7 @@ const sliderWrapperElement = modalFormElement.querySelector('.img-upload__effect
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
-    if (evt.target.matches('.text__description')) {
+    if (evt.target.matches('.text__description') || evt.target.matches('.text__hashtags')) {
       evt.stopPropagation();
     } else {
       evt.preventDefault();

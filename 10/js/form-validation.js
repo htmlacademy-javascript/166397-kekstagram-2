@@ -14,38 +14,46 @@ const pristine = new Pristine(formElement, {
 
 const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
 
-const isHashtagValid = (value) => hashtag.test(value);
+const convertHashtags = (value) => value.trim().toLowerCase().split(/\s+/);
 
-const isEveryHashtagValid = (hashtags) => hashtags.every((item) => isHashtagValid(item));
+const checkHashtagValid = (value) => hashtag.test(value);
 
-const isHashtagsCountValid = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
+const checkEveryHashtagValid = (hashtags) => hashtags.every((item) => checkHashtagValid(item));
 
-const isHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+const checkHashtagsCountValid = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
+
+const checkHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+
+let isEveryHashtagValid = true;
+let isHashtagsCountValid = true;
+let isHashtagsUnique = true;
 
 const validateHashtagsField = (value) => {
-  if (!value) {
+  if (!value.trim()) {
     return true;
   }
 
-  const hashtags = value.trim().split(/\s+/);
+  const hashtags = convertHashtags(value);
 
-  return isEveryHashtagValid(hashtags) && isHashtagsCountValid(hashtags) && isHashtagsUnique(hashtags);
+  isEveryHashtagValid = checkEveryHashtagValid(hashtags);
+  isHashtagsCountValid = checkHashtagsCountValid(hashtags);
+  isHashtagsUnique = checkHashtagsUnique(hashtags);
+
+  return isEveryHashtagValid && isHashtagsCountValid && isHashtagsUnique;
 };
 
 const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
-const getHashtagsErrorMessage = (value) => {
-  const hashtags = value.trim().split(/\s+/);
-
-  if (!isEveryHashtagValid(hashtags)) {
+const getHashtagsErrorMessage = () => {
+  if (!isEveryHashtagValid) {
     return 'Невалидный хэштег';
   }
 
-  if (!isHashtagsUnique(hashtags)) {
+  if (!isHashtagsUnique) {
     return 'Хэштеги повторяются';
   }
 
-  if (!isHashtagsCountValid(hashtags)) {
+  if (!isHashtagsCountValid) {
     return 'Не более 5 хэштегов';
   }
 };
