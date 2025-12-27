@@ -16,6 +16,10 @@ const createComment = ({ id, avatar, message, name }) => {
 };
 
 const renderComments = (comments, container) => {
+  if (!container) {
+    return;
+  }
+
   const commentsListFragment = document.createDocumentFragment();
 
   comments.forEach((comment) => {
