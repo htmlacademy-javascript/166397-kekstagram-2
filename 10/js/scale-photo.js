@@ -7,12 +7,18 @@ const scaleWrapperElement = formElement.querySelector('.img-upload__scale');
 const scaleFieldElement = scaleWrapperElement.querySelector('.scale__control--value');
 const imageElement = formElement.querySelector('.img-upload__preview img');
 
-let scaleValue = parseInt(scaleFieldElement.value, 10);
+let scaleValue;
+
+const resetScaleValue = () => {
+  scaleValue = parseInt(scaleFieldElement.value, 10);
+};
 
 const initScalePhoto = () => {
   scaleWrapperElement.addEventListener('click', (evt) => {
     const smallerElement = evt.target.closest('.scale__control--smaller');
     const biggerElement = evt.target.closest('.scale__control--bigger');
+
+    resetScaleValue();
 
     if (biggerElement || smallerElement) {
       if (smallerElement && scaleValue > MIN_VALUE) {
@@ -29,4 +35,4 @@ const initScalePhoto = () => {
   });
 };
 
-export { initScalePhoto };
+export { initScalePhoto, resetScaleValue };

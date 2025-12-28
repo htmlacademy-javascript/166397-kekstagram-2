@@ -61,6 +61,10 @@ const getHashtagsErrorMessage = () => {
 pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsErrorMessage);
 pristine.addValidator(descriptionFieldElement, validateDescriptionField, 'Не больше 140 символов');
 
+const resetValidation = () => {
+  pristine.reset();
+};
+
 const initFormValidation = () => {
   if (!formElement) {
     return;
@@ -75,4 +79,4 @@ const initFormValidation = () => {
   });
 };
 
-export { initFormValidation };
+export { initFormValidation, resetValidation };

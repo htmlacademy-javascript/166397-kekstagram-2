@@ -88,18 +88,16 @@ const onSliderUpdate = () => {
 
 const onEffectsListChange = (evt) => {
   if (evt.target.matches('.effects__radio')) {
-    const targetElementValue = evt.target.value;
+    currentFilter = evt.target.value;
 
-    if (targetElementValue === 'none') {
+    if (currentFilter === 'none') {
       sliderWrapperElement.classList.add('hidden');
-      currentFilter = '';
-      imageElement.style.filter = 'none';
+      imageElement.style.filter = currentFilter;
     } else {
       sliderWrapperElement.classList.remove('hidden');
-      currentFilter = targetElementValue;
 
       sliderElement.noUiSlider.updateOptions({
-        ...EffectsSettings[targetElementValue],
+        ...EffectsSettings[currentFilter],
       });
 
       sliderElement.noUiSlider.set(EffectsSettings[currentFilter].max);
@@ -112,11 +110,8 @@ const initPhotoFilters = () => {
   sliderElement.noUiSlider.on('update', onSliderUpdate);
   effectsListElement.addEventListener('change', onEffectsListChange);
 };
+const resetPhotoFilters = () => {
+  imageElement.removeAttribute('style');
+};
 
-// const destroySlider = () => {
-//   if (sliderElement.noUiSlider) {
-//     sliderElement.noUiSlider.destroy();
-//   }
-// };
-
-export { initPhotoFilters };
+export { initPhotoFilters, resetPhotoFilters };
