@@ -1,4 +1,4 @@
-import { findElementById, isEscKey } from './utils.js';
+import { isEscKey } from './utils.js';
 import { renderComments } from './render-comments.js';
 
 const COMMENTS_CHUNK_SIZE = 5;
@@ -65,23 +65,10 @@ function closePhotoModal() {
   bodyElement.classList.remove('modal-open');
 }
 
-const initPhotoModal = (photos, container) => {
+const registerPhotoModalEvents = () => {
   if (!modalElement) {
     return;
   }
-
-  container.addEventListener('click', (evt) => {
-    const targetThumbnailElement = evt.target.closest('.picture');
-
-    if (targetThumbnailElement) {
-      evt.preventDefault();
-
-      const targetThumbnailElementId = Number(targetThumbnailElement.dataset.id);
-      const targetPhoto = findElementById(targetThumbnailElementId, photos);
-
-      openPhotoModal(targetPhoto);
-    }
-  });
 
   modalCommentsLoaderElement.addEventListener('click', () => {
     renderNextComments();
@@ -92,4 +79,4 @@ const initPhotoModal = (photos, container) => {
   });
 };
 
-export { initPhotoModal };
+export { registerPhotoModalEvents, openPhotoModal };

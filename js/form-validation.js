@@ -65,18 +65,6 @@ const resetValidation = () => {
   pristine.reset();
 };
 
-const initFormValidation = () => {
-  if (!formElement) {
-    return;
-  }
+const isFormValid = () => pristine.validate();
 
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    if (pristine.validate()) {
-      formElement.submit();
-    }
-  });
-};
-
-export { initFormValidation, resetValidation };
+export { isFormValid, resetValidation };
