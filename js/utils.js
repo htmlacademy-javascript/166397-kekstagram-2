@@ -1,8 +1,17 @@
 const ALERT_SHOW_TIME = 5000;
 const bodyElement = document.querySelector('body');
+let isFormOpen = false;
+
+const setFormState = () => {
+  isFormOpen = !isFormOpen;
+};
+
+const getFormState = () => isFormOpen;
+
+const isSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
 
 const findTemplateById = (id) => {
-  const template = document.querySelector(`#${id}`);
+  const template = bodyElement.querySelector(`#${id}`);
 
   if (!template) {
     throw new Error('Element not found');
@@ -19,19 +28,21 @@ const isEscKey = (evt) => evt.key === 'Escape';
 
 const findElementById = (id, array) => array.find((element) => element.id === id);
 
-const showAlertTemporarily = (template, message) => {
-  const templateElement = template.cloneNode(true);
+const errorTemplateElement = findTemplateById('data-error');
+
+const showAlertTemporarily = (message) => {
+  const errorElement = errorTemplateElement.cloneNode(true);
 
   if (message) {
-    templateElement.querySelector('.data-error__title').textContnet = message;
+    errorElement.querySelector('.data-error__title').textContnet = message;
   }
 
-  bodyElement.append(templateElement);
+  bodyElement.append(errorElement);
 
   setTimeout(() => {
-    templateElement.remove();
+    errorElement.remove();
   }, ALERT_SHOW_TIME);
 };
 
 
-export { findTemplateById, isEscKey, findElementById, showAlertTemporarily };
+export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, isSendInfoModalExist, getFormState, setFormState };

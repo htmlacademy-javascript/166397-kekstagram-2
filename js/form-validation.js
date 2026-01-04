@@ -6,10 +6,10 @@ const hashtagsFieldElement = formElement.querySelector('.text__hashtags');
 const descriptionFieldElement = formElement.querySelector('.text__description');
 
 const pristine = new Pristine(formElement, {
-  classTo: 'img-upload__field-wrapper', // Элемент, на который будут добавляться классы
-  errorTextParent: 'img-upload__field-wrapper', // Элемент, куда будет выводиться текст с ошибкой
-  errorTextTag: 'div', // Тег, который будет обрамлять текст ошибки
-  errorTextClass: 'img-upload__field-wrapper--error' // Класс для элемента с текстом ошибки
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error'
 });
 
 const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -58,8 +58,28 @@ const getHashtagsErrorMessage = () => {
   }
 };
 
+const getDescriptionErrorMessage = () => {
+  const lastTwoDigits = MAX_DESCRIPTION_LENGTH % 100;
+  const lastDigit = MAX_DESCRIPTION_LENGTH % 10;
+  let unitsName = 'символов';
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    unitsName = 'символов';
+  }
+
+  if (lastDigit === 1) {
+    unitsName = 'символа';
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    unitsName = 'символов';
+  }
+
+  return `Не больше ${MAX_DESCRIPTION_LENGTH} ${unitsName}`;
+};
+
 pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsErrorMessage);
-pristine.addValidator(descriptionFieldElement, validateDescriptionField, 'Не больше 140 символов');
+pristine.addValidator(descriptionFieldElement, validateDescriptionField, getDescriptionErrorMessage);
 
 const resetValidation = () => {
   pristine.reset();

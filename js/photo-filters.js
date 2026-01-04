@@ -49,6 +49,13 @@ const EffectsSettings = {
   }
 };
 
+const DefaultSettings = {
+  MIN: 0,
+  MAX: 1,
+  START: 1,
+  STEP: 1
+};
+
 const sliderWrapperElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = sliderWrapperElement.querySelector('.effect-level__slider');
 const effectFieldElement = sliderWrapperElement.querySelector('.effect-level__value');
@@ -60,10 +67,11 @@ let currentFilter = '';
 const createSlider = () => {
   noUiSlider.create(sliderElement, {
     range: {
-      min: 0,
-      max: 1,
+      min: DefaultSettings.MIN,
+      max: DefaultSettings.MAX,
     },
-    start: 1,
+    start: DefaultSettings.START,
+    step: DefaultSettings.STEP,
     connect: 'lower',
     format: {
       to: (value) => Number.isInteger(value) ? value : value.toFixed(1),
@@ -105,6 +113,7 @@ const initPhotoFilters = () => {
   sliderElement.noUiSlider.on('update', onSliderUpdate);
   effectsListElement.addEventListener('change', onEffectsListChange);
 };
+
 const resetPhotoFilters = () => {
   imageElement.removeAttribute('style');
 };

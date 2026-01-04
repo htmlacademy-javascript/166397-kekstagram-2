@@ -1,5 +1,5 @@
-import { isEscKey } from './utils.js';
-import { renderSendInfoModal } from './info-modal-send.js';
+import { isEscKey, isSendInfoModalExist, setFormState } from './utils.js';
+import { renderSendInfoModal } from './send-info-modal.js';
 import { isFormValid, resetValidation } from './form-validation.js';
 import { initScalePhoto, resetScaleValue } from './scale-photo.js';
 import { initPhotoFilters, resetPhotoFilters } from './photo-filters.js';
@@ -20,7 +20,7 @@ const submitButtonElement = modalFormElement.querySelector('.img-upload__submit'
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
-    if (evt.target.matches('.text__description') || evt.target.matches('.text__hashtags')) {
+    if (evt.target.matches('.text__description') || evt.target.matches('.text__hashtags') || isSendInfoModalExist()) {
       evt.stopPropagation();
     } else {
       evt.preventDefault();
@@ -29,17 +29,13 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const disableSubmitButton = () => {
-  submitButtonElement.disabled = true;
-  submitButtonElement.textContent = SubmitButtonText.SENDING;
-};
-
-const enableSubmitButton = () => {
-  submitButtonElement.disabled = false;
-  submitButtonElement.textContent = SubmitButtonText.IDLE;
+const toggleSubmitButton = (isDisabled, text) => {
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = text;
 };
 
 function openModalForm() {
+  setFormState();
   modalFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -47,6 +43,7 @@ function openModalForm() {
 }
 
 function closeModalForm() {
+  setFormState();
   modalFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -66,14 +63,14 @@ const initModalForm = () => {
 
     if (isFormValid()) {
       const formData = new FormData(evt.target);
-      disableSubmitButton();
+      toggleSubmitButton(true, SubmitButtonText.SENDING);
       sendData(formData).then(() => {
         closeModalForm();
         renderSendInfoModal('success');
       }).catch(() => {
         renderSendInfoModal('error');
       }).finally(() => {
-        enableSubmitButton();
+        toggleSubmitButton(false, SubmitButtonText.IDLE);
       });
     }
   });
