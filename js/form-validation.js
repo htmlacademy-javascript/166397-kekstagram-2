@@ -44,6 +44,25 @@ const validateHashtagsField = (value) => {
 
 const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
+const getHashtagsWord = () => {
+  const lastTwoDigits = MAX_HASHTAGS_COUNT % 100;
+  const lastDigit = MAX_HASHTAGS_COUNT % 10;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return 'хэштегов';
+  }
+
+  if (lastDigit === 1) {
+    return 'хэштега';
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return 'хэштегов';
+  }
+
+  return 'хэштегов';
+};
+
 const getHashtagsErrorMessage = () => {
   if (!isEveryHashtagValid) {
     return 'Невалидный хэштег';
@@ -54,28 +73,28 @@ const getHashtagsErrorMessage = () => {
   }
 
   if (!isHashtagsCountValid) {
-    return 'Не более 5 хэштегов';
+    return `Не более ${MAX_HASHTAGS_COUNT} ${getHashtagsWord()}`;
   }
 };
 
 const getDescriptionErrorMessage = () => {
   const lastTwoDigits = MAX_DESCRIPTION_LENGTH % 100;
   const lastDigit = MAX_DESCRIPTION_LENGTH % 10;
-  let unitsName = 'символов';
+  let symbolsWord = 'символов';
 
   if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-    unitsName = 'символов';
+    symbolsWord = 'символов';
   }
 
   if (lastDigit === 1) {
-    unitsName = 'символа';
+    symbolsWord = 'символа';
   }
 
   if (lastDigit >= 2 && lastDigit <= 4) {
-    unitsName = 'символов';
+    symbolsWord = 'символов';
   }
 
-  return `Не больше ${MAX_DESCRIPTION_LENGTH} ${unitsName}`;
+  return `Не больше ${MAX_DESCRIPTION_LENGTH} ${symbolsWord}`;
 };
 
 pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsErrorMessage);
