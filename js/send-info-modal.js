@@ -22,9 +22,8 @@ const onBodyKeydown = (evt) => {
   }
 };
 
-const createSendInfoModal = (message) => {
-  const templateElement = currentStatus === 'success' ? successTemplateElement : errorTemplateElement;
-  const templateModalElement = templateElement.cloneNode(true);
+const createSendInfoModal = (template, message) => {
+  const templateModalElement = template.cloneNode(true);
   const closeElement = templateModalElement.querySelector(`.${currentStatus}__button`);
 
   if (message) {
@@ -44,7 +43,7 @@ function renderSendInfoModal(status, message) {
   }
 
   currentStatus = status;
-  modalElement = createSendInfoModal(message);
+  modalElement = createSendInfoModal(currentStatus === 'success' ? successTemplateElement : errorTemplateElement, message);
   bodyElement.append(modalElement);
   document.addEventListener('keydown', onBodyKeydown);
   modalElement.addEventListener('click', onModalClick);
