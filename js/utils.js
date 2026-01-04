@@ -44,5 +44,23 @@ const showAlertTemporarily = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const getPluralForm = (number, formForOne, formForFew, formForMany) => {
+  const lastTwoDigits = Math.abs(number) % 100;
+  const lastDigit = number % 10;
 
-export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, checkSendInfoModalExist, getFormState, setFormState };
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return formForMany;
+  }
+
+  if (lastDigit === 1) {
+    return formForOne;
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return formForFew;
+  }
+
+  return formForMany;
+};
+
+export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, checkSendInfoModalExist, getFormState, setFormState, getPluralForm };

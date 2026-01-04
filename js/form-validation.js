@@ -1,3 +1,5 @@
+import { getPluralForm } from './utils';
+
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
 
@@ -44,25 +46,6 @@ const validateHashtagsField = (value) => {
 
 const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
-const getHashtagsWord = () => {
-  const lastTwoDigits = MAX_HASHTAGS_COUNT % 100;
-  const lastDigit = MAX_HASHTAGS_COUNT % 10;
-
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-    return 'хэштегов';
-  }
-
-  if (lastDigit === 1) {
-    return 'хэштега';
-  }
-
-  if (lastDigit >= 2 && lastDigit <= 4) {
-    return 'хэштегов';
-  }
-
-  return 'хэштегов';
-};
-
 const getHashtagsErrorMessage = () => {
   if (!isEveryHashtagValid) {
     return 'Невалидный хэштег';
@@ -73,29 +56,11 @@ const getHashtagsErrorMessage = () => {
   }
 
   if (!isHashtagsCountValid) {
-    return `Не более ${MAX_HASHTAGS_COUNT} ${getHashtagsWord()}`;
+    return `Не более ${MAX_HASHTAGS_COUNT} ${getPluralForm(MAX_HASHTAGS_COUNT, 'хэштегов', 'хэштега', 'хэштегов')}`;
   }
 };
 
-const getDescriptionErrorMessage = () => {
-  const lastTwoDigits = MAX_DESCRIPTION_LENGTH % 100;
-  const lastDigit = MAX_DESCRIPTION_LENGTH % 10;
-  let symbolsWord = 'символов';
-
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-    symbolsWord = 'символов';
-  }
-
-  if (lastDigit === 1) {
-    symbolsWord = 'символа';
-  }
-
-  if (lastDigit >= 2 && lastDigit <= 4) {
-    symbolsWord = 'символов';
-  }
-
-  return `Не больше ${MAX_DESCRIPTION_LENGTH} ${symbolsWord}`;
-};
+const getDescriptionErrorMessage = () => `Не больше ${MAX_DESCRIPTION_LENGTH} ${getPluralForm(MAX_DESCRIPTION_LENGTH, 'символов', 'символа', 'символов')}`;
 
 pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsErrorMessage);
 pristine.addValidator(descriptionFieldElement, validateDescriptionField, getDescriptionErrorMessage);
