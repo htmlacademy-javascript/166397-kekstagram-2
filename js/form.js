@@ -5,6 +5,7 @@ import { initScalePhoto, resetScaleValue } from './scale-photo.js';
 import { initPhotoFilters, resetPhotoFilters } from './photo-filters.js';
 import { sendData } from './api.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const SubmitButtonText = {
   IDLE: 'Отправить',
   SENDING: 'Отправляю...'
@@ -17,6 +18,7 @@ const uploadControlElement = formElement.querySelector('.img-upload__input');
 const modalFormCloseElement = modalFormElement.querySelector('.img-upload__cancel');
 const sliderWrapperElement = modalFormElement.querySelector('.img-upload__effect-level');
 const submitButtonElement = modalFormElement.querySelector('.img-upload__submit');
+const imageElement = modalFormElement.querySelector('.img-upload__preview img');
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
@@ -78,6 +80,13 @@ const initModalForm = () => {
 
   uploadControlElement.addEventListener('change', () => {
     openModalForm();
+
+    const file = uploadControlElement.files[0];
+    const fileName = file.name.toLowerCase();
+
+    if (FILE_TYPES.some((item) => fileName.endsWith(item))) {
+      imageElement.src = URL.createObjectURL(file);
+    }
   });
 
   modalFormCloseElement.addEventListener('click', () => {
