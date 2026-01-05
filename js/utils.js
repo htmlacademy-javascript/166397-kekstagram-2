@@ -1,13 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const DEFAULT_TIMEOUT_DELAY = 500;
 const bodyElement = document.querySelector('body');
-let isFormOpen = false;
-
-const setFormState = () => {
-  isFormOpen = !isFormOpen;
-};
-
-const getFormState = () => isFormOpen;
 
 const checkSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
 
@@ -79,8 +72,6 @@ export {
   findElementById,
   showAlertTemporarily,
   checkSendInfoModalExist,
-  getFormState,
-  setFormState,
   getPluralForm,
   debounce
 };

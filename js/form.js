@@ -1,4 +1,4 @@
-import { isEscKey, checkSendInfoModalExist, setFormState, showAlertTemporarily } from './utils.js';
+import { isEscKey, checkSendInfoModalExist, showAlertTemporarily } from './utils.js';
 import { renderSendInfoModal } from './send-info-modal.js';
 import { isFormValid, resetValidation } from './form-validation.js';
 import { initScalePhoto, resetScaleValue } from './scale-photo.js';
@@ -19,6 +19,7 @@ const modalFormCloseElement = modalFormElement.querySelector('.img-upload__cance
 const sliderWrapperElement = modalFormElement.querySelector('.img-upload__effect-level');
 const submitButtonElement = modalFormElement.querySelector('.img-upload__submit');
 const imageElement = modalFormElement.querySelector('.img-upload__preview img');
+const effectsPreviewsElements = modalFormElement.querySelectorAll('.effects__preview');
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
@@ -38,7 +39,6 @@ const toggleSubmitButton = (isDisabled, text) => {
 };
 
 function openModalForm() {
-  setFormState();
   modalFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -46,7 +46,6 @@ function openModalForm() {
 }
 
 function closeModalForm() {
-  setFormState();
   modalFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -84,7 +83,13 @@ const initModalForm = () => {
 
     if (FILE_TYPES.some((item) => fileType.endsWith(item))) {
       openModalForm();
-      imageElement.src = URL.createObjectURL(file);
+
+      const imageURL = URL.createObjectURL(file);
+
+      imageElement.src = imageURL;
+      effectsPreviewsElements.forEach((preview) => {
+        preview.style.backgroundImage = `url(${imageURL})`;
+      });
     } else {
       showAlertTemporarily('Неверный формат изображения');
     }

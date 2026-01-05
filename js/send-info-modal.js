@@ -1,4 +1,4 @@
-import { isEscKey, findTemplateById, getFormState } from './utils.js';
+import { isEscKey, findTemplateById } from './utils.js';
 
 const VALID_STATUSES = ['success', 'error'];
 
@@ -47,17 +47,11 @@ function renderSendInfoModal(status, message) {
   bodyElement.append(modalElement);
   document.addEventListener('keydown', onBodyKeydown);
   modalElement.addEventListener('click', onModalClick);
-  bodyElement.classList.add('modal-open');
 }
 
 function removeSendInfoModal() {
   modalElement.remove();
   document.removeEventListener('keydown', onBodyKeydown);
-
-  const isFormOpen = getFormState();
-  if (!isFormOpen) {
-    bodyElement.classList.remove('modal-open');
-  }
 }
 
 export { renderSendInfoModal };
