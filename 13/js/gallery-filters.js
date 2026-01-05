@@ -1,5 +1,5 @@
-import { renderThumbnails } from './render-thumbnails';
-import { debounce } from './utils';
+import { renderThumbnails } from './render-thumbnails.js';
+import { debounce } from './utils.js';
 
 const TIMEOUT_DELAY = 500;
 const RANDOM_PHOTOS_COUNT = 10;
