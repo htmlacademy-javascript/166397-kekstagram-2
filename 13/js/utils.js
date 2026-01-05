@@ -1,13 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const DEFAULT_TIMEOUT_DELAY = 500;
 const bodyElement = document.querySelector('body');
-let isFormOpen = false;
-
-const setFormState = () => {
-  isFormOpen = !isFormOpen;
-};
-
-const getFormState = () => isFormOpen;
 
 const checkSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
 
@@ -35,7 +28,7 @@ const showAlertTemporarily = (message) => {
   const errorElement = errorTemplateElement.cloneNode(true);
 
   if (message) {
-    errorElement.querySelector('.data-error__title').textContnet = message;
+    errorElement.querySelector('.data-error__title').textContent = message;
   }
 
   bodyElement.append(errorElement);
@@ -79,8 +72,6 @@ export {
   findElementById,
   showAlertTemporarily,
   checkSendInfoModalExist,
-  getFormState,
-  setFormState,
   getPluralForm,
   debounce
 };

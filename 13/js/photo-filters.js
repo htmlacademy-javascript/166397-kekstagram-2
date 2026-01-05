@@ -1,3 +1,10 @@
+const DefaultSettings = {
+  MIN: 0,
+  MAX: 1,
+  START: 1,
+  STEP: 1
+};
+
 const EffectsMap = {
   'chrome': 'grayscale',
   'sepia': 'sepia',
@@ -37,7 +44,7 @@ const EffectsSettings = {
       max: 3,
     },
     start: 3,
-    step: 1,
+    step: 0.1,
   },
   'heat': {
     range: {
@@ -47,13 +54,6 @@ const EffectsSettings = {
     start: 3,
     step: 0.1,
   }
-};
-
-const DefaultSettings = {
-  MIN: 0,
-  MAX: 1,
-  START: 1,
-  STEP: 1
 };
 
 const sliderWrapperElement = document.querySelector('.img-upload__effect-level');
