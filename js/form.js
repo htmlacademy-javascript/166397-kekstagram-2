@@ -1,4 +1,4 @@
-import { isEscKey, checkSendInfoModalExist, setFormState } from './utils.js';
+import { isEscKey, checkSendInfoModalExist, setFormState, showAlertTemporarily } from './utils.js';
 import { renderSendInfoModal } from './send-info-modal.js';
 import { isFormValid, resetValidation } from './form-validation.js';
 import { initScalePhoto, resetScaleValue } from './scale-photo.js';
@@ -79,13 +79,14 @@ const initModalForm = () => {
   });
 
   uploadControlElement.addEventListener('change', () => {
-    openModalForm();
-
     const file = uploadControlElement.files[0];
-    const fileName = file.name.toLowerCase();
+    const fileType = file.type;
 
-    if (FILE_TYPES.some((item) => fileName.endsWith(item))) {
+    if (FILE_TYPES.some((item) => fileType.endsWith(item))) {
+      openModalForm();
       imageElement.src = URL.createObjectURL(file);
+    } else {
+      showAlertTemporarily('Неверный формат изображения');
     }
   });
 

@@ -35,7 +35,7 @@ const showAlertTemporarily = (message) => {
   const errorElement = errorTemplateElement.cloneNode(true);
 
   if (message) {
-    errorElement.querySelector('.data-error__title').textContnet = message;
+    errorElement.querySelector('.data-error__title').textContent = message;
   }
 
   bodyElement.append(errorElement);
