@@ -5,14 +5,6 @@ const DefaultSettings = {
   STEP: 1
 };
 
-const EffectsMap = {
-  'chrome': 'grayscale',
-  'sepia': 'sepia',
-  'marvin': 'invert',
-  'phobos': 'blur',
-  'heat': 'brightness',
-};
-
 const EffectsSettings = {
   'chrome': {
     range: {
@@ -56,6 +48,14 @@ const EffectsSettings = {
   }
 };
 
+const effectsMap = {
+  'chrome': 'grayscale',
+  'sepia': 'sepia',
+  'marvin': 'invert',
+  'phobos': 'blur',
+  'heat': 'brightness',
+};
+
 const sliderWrapperElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = sliderWrapperElement.querySelector('.effect-level__slider');
 const effectFieldElement = sliderWrapperElement.querySelector('.effect-level__value');
@@ -84,7 +84,7 @@ const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectFieldElement.value = `${sliderValue}`;
 
-  const propertyValue = `${EffectsMap[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
+  const propertyValue = `${effectsMap[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
 
   imageElement.style.filter = `${propertyValue}`;
 };
