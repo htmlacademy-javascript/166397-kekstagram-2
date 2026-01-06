@@ -20,7 +20,7 @@ const findTemplateById = (id) => {
 
 const isEscKey = (evt) => evt.key === 'Escape';
 
-const findElementById = (id, array) => array.find((element) => element.id === id);
+const findElementById = (id, elements) => elements.find((element) => element.id === id);
 
 const errorTemplateElement = findTemplateById('data-error');
 

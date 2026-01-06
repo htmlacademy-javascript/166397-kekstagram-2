@@ -2,6 +2,7 @@ import { getPluralForm } from './utils.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
+const HASHTAG_REG_EXP = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const formElement = document.querySelector('.img-upload__form');
 const hashtagsFieldElement = formElement.querySelector('.text__hashtags');
@@ -14,11 +15,9 @@ const pristine = new Pristine(formElement, {
   errorTextClass: 'img-upload__field-wrapper--error'
 });
 
-const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
-
 const convertHashtags = (value) => value.trim().toLowerCase().split(/\s+/);
 
-const checkHashtagValid = (value) => hashtag.test(value);
+const checkHashtagValid = (value) => HASHTAG_REG_EXP.test(value);
 
 const checkEveryHashtagValid = (hashtags) => hashtags.every((item) => checkHashtagValid(item));
 
