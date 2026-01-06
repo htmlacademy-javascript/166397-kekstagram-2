@@ -57,14 +57,14 @@ const getPluralForm = (number, formForOne, formForFew, formForMany) => {
   return formForMany;
 };
 
-function debounce (callback, timeoutDelay = DEFAULT_TIMEOUT_DELAY) {
+const debounce = (callback, timeoutDelay = DEFAULT_TIMEOUT_DELAY) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 export {
   findTemplateById,

@@ -38,18 +38,22 @@ const toggleSubmitButton = (isDisabled, text) => {
   submitButtonElement.textContent = text;
 };
 
-function openModalForm() {
+const resetForm = () => {
+  formElement.reset();
+};
+
+const openModalForm = () => {
   modalFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   sliderWrapperElement.classList.add('hidden');
-}
+};
 
 function closeModalForm() {
   modalFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  formElement.reset();
+  resetForm();
   resetPhotoFilters();
   resetScaleValue();
   resetValidation();
@@ -91,6 +95,7 @@ const initModalForm = () => {
         preview.style.backgroundImage = `url(${imageURL})`;
       });
     } else {
+      resetForm();
       showAlertTemporarily('Неверный формат изображения');
     }
   });

@@ -37,7 +37,7 @@ const createSendInfoModal = (template, message) => {
   return templateModalElement;
 };
 
-function renderSendInfoModal(status, message) {
+const renderSendInfoModal = (status, message) => {
   if (!VALID_STATUSES.includes(status)) {
     return;
   }
@@ -47,7 +47,7 @@ function renderSendInfoModal(status, message) {
   bodyElement.append(modalElement);
   document.addEventListener('keydown', onBodyKeydown);
   modalElement.addEventListener('click', onModalClick);
-}
+};
 
 function removeSendInfoModal() {
   modalElement.remove();

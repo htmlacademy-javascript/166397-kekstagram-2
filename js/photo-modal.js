@@ -45,7 +45,7 @@ const renderBigPhoto = ({url, likes, description}) => {
   modalDescriptionElement.textContent = description;
 };
 
-function openPhotoModal(photo) {
+const openPhotoModal = (photo) => {
   modalElement.classList.remove('hidden');
   comments = photo.comments;
 
@@ -56,7 +56,7 @@ function openPhotoModal(photo) {
 
   document.addEventListener('keydown', onDocumentKeydown);
   bodyElement.classList.add('modal-open');
-}
+};
 
 function closePhotoModal() {
   startIndex = 0;
