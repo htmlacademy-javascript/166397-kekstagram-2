@@ -1,10 +1,11 @@
-import { isEscKey, checkSendInfoModalExist, setFormState } from './utils.js';
+import { isEscKey, checkSendInfoModalExist, showAlertTemporarily } from './utils.js';
 import { renderSendInfoModal } from './send-info-modal.js';
 import { isFormValid, resetValidation } from './form-validation.js';
 import { initScalePhoto, resetScaleValue } from './scale-photo.js';
 import { initPhotoFilters, resetPhotoFilters } from './photo-filters.js';
 import { sendData } from './api.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const SubmitButtonText = {
   IDLE: 'Отправить',
   SENDING: 'Отправляю...'
@@ -17,6 +18,8 @@ const uploadControlElement = formElement.querySelector('.img-upload__input');
 const modalFormCloseElement = modalFormElement.querySelector('.img-upload__cancel');
 const sliderWrapperElement = modalFormElement.querySelector('.img-upload__effect-level');
 const submitButtonElement = modalFormElement.querySelector('.img-upload__submit');
+const imageElement = modalFormElement.querySelector('.img-upload__preview img');
+const effectsPreviewsElements = modalFormElement.querySelectorAll('.effects__preview');
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
@@ -35,20 +38,22 @@ const toggleSubmitButton = (isDisabled, text) => {
   submitButtonElement.textContent = text;
 };
 
-function openModalForm() {
-  setFormState();
+const resetForm = () => {
+  formElement.reset();
+};
+
+const openModalForm = () => {
   modalFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   sliderWrapperElement.classList.add('hidden');
-}
+};
 
 function closeModalForm() {
-  setFormState();
   modalFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  formElement.reset();
+  resetForm();
   resetPhotoFilters();
   resetScaleValue();
   resetValidation();
@@ -77,7 +82,22 @@ const initModalForm = () => {
   });
 
   uploadControlElement.addEventListener('change', () => {
-    openModalForm();
+    const file = uploadControlElement.files[0];
+    const fileType = file.type;
+
+    if (FILE_TYPES.some((item) => fileType.endsWith(item))) {
+      openModalForm();
+
+      const imageURL = URL.createObjectURL(file);
+
+      imageElement.src = imageURL;
+      effectsPreviewsElements.forEach((preview) => {
+        preview.style.backgroundImage = `url(${imageURL})`;
+      });
+    } else {
+      resetForm();
+      showAlertTemporarily('Неверный формат изображения');
+    }
   });
 
   modalFormCloseElement.addEventListener('click', () => {

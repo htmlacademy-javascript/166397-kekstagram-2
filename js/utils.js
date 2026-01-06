@@ -1,13 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const DEFAULT_TIMEOUT_DELAY = 500;
 const bodyElement = document.querySelector('body');
-let isFormOpen = false;
-
-const setFormState = () => {
-  isFormOpen = !isFormOpen;
-};
-
-const getFormState = () => isFormOpen;
 
 const checkSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
 
@@ -35,7 +28,7 @@ const showAlertTemporarily = (message) => {
   const errorElement = errorTemplateElement.cloneNode(true);
 
   if (message) {
-    errorElement.querySelector('.data-error__title').textContnet = message;
+    errorElement.querySelector('.data-error__title').textContent = message;
   }
 
   bodyElement.append(errorElement);
@@ -64,14 +57,14 @@ const getPluralForm = (number, formForOne, formForFew, formForMany) => {
   return formForMany;
 };
 
-function debounce (callback, timeoutDelay = DEFAULT_TIMEOUT_DELAY) {
+const debounce = (callback, timeoutDelay = DEFAULT_TIMEOUT_DELAY) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 export {
   findTemplateById,
@@ -79,8 +72,6 @@ export {
   findElementById,
   showAlertTemporarily,
   checkSendInfoModalExist,
-  getFormState,
-  setFormState,
   getPluralForm,
   debounce
 };

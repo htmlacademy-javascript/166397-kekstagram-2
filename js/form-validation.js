@@ -1,4 +1,4 @@
-import { getPluralForm } from './utils';
+import { getPluralForm } from './utils.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
